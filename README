@@ -1,0 +1,4 @@
+wach - "watch changes"
+
+  Watch for changes to files within the current directory and run a command
+  when they occur.
