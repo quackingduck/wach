@@ -3,11 +3,9 @@
 Watches a directory for changes. When one happens, writes the path that
 changed to stdout.
 
-Only works on lion.
+Only works on OS X 10.7 (Lion).
 
 */
-
-// cc -Wall -framework CoreServices
 
 #include <CoreServices/CoreServices.h>
 
@@ -52,12 +50,13 @@ int main(int argc, char* argv[]) {
     pathsToWatch,
     kFSEventStreamEventIdSinceNow,
     0, // latency
-    kFSEventStreamCreateFlagFileEvents // lion only
+    kFSEventStreamCreateFlagFileEvents // this flag is lion only
   );
 
   FSEventStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
   FSEventStreamStart(stream);
   CFRunLoopRun();
+  return 0; // CFRunLoopRun never returns, we never get here
 }
 
 /*

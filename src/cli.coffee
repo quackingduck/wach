@@ -1,11 +1,9 @@
-# todo, validate args
-
 path = require 'path'
 spawn = require('child_process').spawn
 minimatch = require 'minimatch'
 watch = require('./wach').watch
 
-run = (args) ->
+@run = (args) ->
   {help,command,only} = parseArgs args
 
   if help
@@ -21,7 +19,7 @@ run = (args) ->
 
   commandRunning = no
 
-  watch __dirname, (changedPath) ->
+  watch process.cwd(), (changedPath) ->
     changedPath = path.relative __dirname, changedPath
 
     # Just the one instance thanks
@@ -94,4 +92,4 @@ Examples:
 
 # ---
 
-run process.argv.slice 2
+# run process.argv.slice 2

@@ -2,3 +2,5 @@
 /notes
 /node_modules
 /prototypes
+
+/bin/wach-watchdir
