@@ -15,7 +15,6 @@ watch = require('./wach').watch
 
   logInfo "Will run: #{command}"
   logInfo "when any files added or updated."
-  logInfo()
 
   commandRunning = no
 
@@ -40,7 +39,7 @@ watch = require('./wach').watch
 
     logInfo "changed: #{changedPath} "
     logInfo "running command"
-    logInfo()
+    logInfo ""
 
     # Run command in subshell
     child = spawn 'bash', ['-c', substitutePath(command, changedPath) ]
@@ -49,9 +48,8 @@ watch = require('./wach').watch
     child.on 'exit', (code) ->
       commandRunning = no
       # todo: report status
-      logInfo()
+      logInfo ""
       logInfo "command exited"
-      logInfo()
 
 parseArgs = (raw) ->
   help = no; command = []; only = []
@@ -69,8 +67,7 @@ substitutePath = (command, path) ->
   command.replace '@', path
 
 logInfo = (msg) ->
-  console.log if msg? then "- #{msg}" else ''
-
+  console.log "- #{msg}"
 
 usage = """
 Usage:
