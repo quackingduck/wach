@@ -61,7 +61,7 @@ parseArgs = (raw) ->
       when '--help', '-h' then help = yes
       when '--only', '-o' then only = (i for i in raw.shift().split(',') when i isnt '' )
       else command.push arg
-  command.join ' '
+  command = command.join ' '
   {help,command,only}
 
 logInfo = (msg) ->
