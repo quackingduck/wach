@@ -27,15 +27,7 @@ watch = require('./wach').watch
     # Ignore the deletes
     return unless path.existsSync changedPath
 
-    # changedPath must pass only filters
-    passesOnlyFilters = yes
-    if only.length > 0
-      passesOnlyFilters = no
-      for exp in only
-        if minimatch changedPath, exp
-          passesOnlyFilters = yes
-
-    return unless passesOnlyFilters
+    return unless passesGlobFilters path, only
 
     logInfo "changed: #{changedPath} "
     logInfo "running command"
@@ -65,6 +57,16 @@ parseArgs = (raw) ->
 # foo@bar.com)
 substitutePath = (command, path) ->
   command.replace '@', path
+
+passesGlobFilters = (path, filters) ->
+  if filters.length is 0
+    yes
+  else
+    pass = no
+    for exp in only
+      if minimatch changedPath, exp
+        pass = yes
+    pass
 
 logInfo = (msg) ->
   console.log "- #{msg}"
