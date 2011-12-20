@@ -20,7 +20,7 @@ watch = require('./wach').watch
   commandRunning = no
 
   watch process.cwd(), (changedPath) ->
-    changedPath = path.relative __dirname, changedPath
+    changedPath = path.relative process.cwd(), changedPath
 
     # Just the one instance thanks
     return if commandRunning
