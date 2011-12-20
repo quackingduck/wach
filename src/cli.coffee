@@ -43,8 +43,7 @@ watch = require('./wach').watch
     logInfo()
 
     # Run command in subshell
-    # todo: command '@' substitution
-    child = spawn 'bash', ['-c', command ]
+    child = spawn 'bash', ['-c', substitutePath(command, changedPath) ]
     commandRunning = yes
     child.stdout.pipe process.stdout
     child.on 'exit', (code) ->
@@ -63,6 +62,11 @@ parseArgs = (raw) ->
       else command.push arg
   command = command.join ' '
   {help,command,only}
+
+# todo: don't substitute '@' if it's in the middle of a word (e.g.
+# foo@bar.com)
+substitutePath = (command, path) ->
+  command.replace '@', path
 
 logInfo = (msg) ->
   console.log if msg? then "- #{msg}" else ''
