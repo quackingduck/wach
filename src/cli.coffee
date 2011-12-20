@@ -21,12 +21,8 @@ watch = require('./wach').watch
   watch process.cwd(), (changedPath) ->
     changedPath = path.relative process.cwd(), changedPath
 
-    # Just the one instance thanks
     return if commandRunning
-
-    # Ignore the deletes
     return unless path.existsSync changedPath
-
     return unless passesGlobFilters path, only
 
     logInfo "changed: #{changedPath} "
