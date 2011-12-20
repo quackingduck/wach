@@ -89,7 +89,3 @@ Examples:
   wach -o *.coffee, coffee @
   TEST_DIR=generators wach -o **/*.rb, bundle exec rake test
 """
-
-# ---
-
-# run process.argv.slice 2
