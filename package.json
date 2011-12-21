@@ -2,7 +2,7 @@
   "name": "wach",
   "description": "Run a command when a file add/update event occurs",
   "author": "Myles Byrne",
-  "version": "0.0.1-dev",
+  "version": "0.0.1",
   "main": "./lib/wach",
   "bin": {
     "wach": "./bin/wach"
