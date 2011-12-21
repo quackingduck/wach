@@ -3,7 +3,7 @@ spawn = require('child_process').spawn
 # Calls `callback` with a path every time a filesystem event occurs in `dir`,
 # e.g.:
 #
-#     watch '.', (path) -> console.log "something happend to #{path}!"
+#     watch '.', (path) -> console.log "something happened to #{path}!"
 #
 # This function is a thin wrapper over the `wach-watchdir` executable which
 # does the heavy lifting. It hooks into the OS's file events system and writes
@@ -20,6 +20,8 @@ spawn = require('child_process').spawn
     Unable to start watcher for "#{dir}".
     This is probably a bug.
     """ + '\n'
+
+module.exports = @watch
 
 # `wach-watchdir` writes one or more paths separated by newlines to its stdout
 # stream, e.g.:
