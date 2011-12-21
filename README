@@ -1,4 +1,30 @@
-wach - "watch changes"
+`8.`888b                 ,8' .8.           ,o888888o.    8 8888        8
+ `8.`888b               ,8' .888.         8888     `88.  8 8888        8
+  `8.`888b             ,8' :88888.     ,8 8888       `8. 8 8888        8
+   `8.`888b     .b    ,8' . `88888.    88 8888           8 8888        8
+    `8.`888b    88b  ,8' .8. `88888.   88 8888           8 8888        8
+     `8.`888b .`888b,8' .8`8. `88888.  88 8888           8 8888        8
+      `8.`888b8.`8888' .8' `8. `88888. 88 8888           8 8888888888888
+       `8.`888`8.`88' .8'   `8. `88888.`8 8888       .8' 8 8888        8
+        `8.`8' `8,`' .888888888. `88888.  8888     ,88'  8 8888        8
+         `8.`   `8' .8'       `8. `88888.  `8888888P'    8 8888        8
+
+
+"watch changes"
 
   Watch for changes to files within the current directory and run a command
   when they occur.
+
+Examples
+
+  # Run `make` every time a file in the current directory is updated/added
+  wach make
+
+  # Only when .c files change
+  wach -o *.c, make
+
+  # Compile the .coffee file that changed
+  wach -o *.coffee, coffee @
+
+  # Run the tests every time a ruby file changes
+  TEST_DIR=generators wach -o **/*.rb, bundle exec rake test
