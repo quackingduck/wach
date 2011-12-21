@@ -1,7 +1,7 @@
 path = require 'path'
 spawn = require('child_process').spawn
 minimatch = require 'minimatch'
-watch = require('./wach').watch
+watch = require './wach'
 
 @run = (args) ->
   {help,command,only} = parseArgs args
