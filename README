@@ -15,6 +15,14 @@
   Watch for changes to files within the current directory and run a command
   when they occur.
 
+Requirements
+
+  Only runs on OS X 10.7 (Lion). Sorry
+
+Install
+
+  npm install wach
+
 Examples
 
   # Run `make` every time a file in the current directory is updated/added
@@ -28,3 +36,22 @@ Examples
 
   # Run the tests every time a ruby file changes
   TEST_DIR=generators wach -o **/*.rb, bundle exec rake test
+
+Node API
+
+  wach = require('../src/wach');
+  wach('.', function(path) {
+    return console.log("something happened to " + path + "!");
+  })
+
+Inspiration
+
+  steakout
+  http://michael-mccracken.net/software/stakeout.tgz
+
+  steakout.rb http://www.pragmaticautomation.com/cgi-bin/pragauto.cgi/Monitor/StakingOutFileChanges.rdoc
+
+  the --watch flag for coffeescript http://jashkenas.github.com/coffee-script/#usage
+
+  watch
+  http://en.wikipedia.org/wiki/Watch_(Unix)
