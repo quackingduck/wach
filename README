@@ -49,9 +49,11 @@ Inspiration
   steakout
   http://michael-mccracken.net/software/stakeout.tgz
 
-  steakout.rb http://www.pragmaticautomation.com/cgi-bin/pragauto.cgi/Monitor/StakingOutFileChanges.rdoc
+  steakout.rb
+  http://www.pragmaticautomation.com/cgi-bin/pragauto.cgi/Monitor/StakingOutFileChanges.rdoc
 
-  the --watch flag for coffeescript http://jashkenas.github.com/coffee-script/#usage
+  the --watch flag for coffeescript
+  http://jashkenas.github.com/coffee-script/#usage
 
   watch
   http://en.wikipedia.org/wiki/Watch_(Unix)
