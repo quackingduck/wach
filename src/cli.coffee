@@ -30,7 +30,7 @@ watch = require('./wach').watch
     logInfo ""
 
     # Run command in subshell
-    child = spawn 'bash', ['-c', substitutePath(command, changedPath) ]
+    child = spawn 'sh', ['-c', substitutePath(command, changedPath) ]
     commandRunning = yes
     child.stdout.pipe process.stdout
     child.on 'exit', (code) ->
