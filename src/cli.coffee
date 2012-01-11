@@ -23,7 +23,7 @@ watch = require './wach'
 
     return if commandRunning
     return unless path.existsSync changedPath
-    return unless passesGlobFilters path, only
+    return unless passesGlobFilters changedPath, only
 
     logInfo "changed: #{changedPath} "
     logInfo "running command"
