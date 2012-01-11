@@ -4,7 +4,6 @@
 
 , "main": "./lib/wach"
 , "bin": { "wach": "./bin/wach" }
-, "files": []
 , "engines": { "node": ">=0.4.0" }
 , "dependencies": { "minimatch": ">=0.0.5" }
 , "devDependencies": { "coffee-script": "1.1.2" }
