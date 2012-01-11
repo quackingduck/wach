@@ -59,7 +59,7 @@ passesGlobFilters = (path, filters) ->
     yes
   else
     pass = no
-    for exp in only
+    for exp in filters
       if minimatch changedPath, exp
         pass = yes
     pass
