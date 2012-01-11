@@ -60,7 +60,7 @@ passesGlobFilters = (path, filters) ->
   else
     pass = no
     for exp in filters
-      if minimatch changedPath, exp
+      if minimatch path, exp
         pass = yes
     pass
 
@@ -88,3 +88,7 @@ Examples:
   wach -o *.coffee, coffee @
   TEST_DIR=generators wach -o **/*.rb, bundle exec rake test
 """
+
+# Expose some internals for testing
+@_test = {passesGlobFilters}
+
