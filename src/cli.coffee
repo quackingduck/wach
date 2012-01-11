@@ -90,5 +90,5 @@ Examples:
 """
 
 # Expose some internals for testing
-@_test = {passesGlobFilters}
+@_test = {passesGlobFilters,parseArgs}
 
