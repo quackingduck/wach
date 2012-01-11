@@ -28,11 +28,11 @@ Examples
   # Run `make` every time a file in the current directory is updated/added
   wach make
 
-  # Only when .c files change
-  wach -o *.c, make
+  # Compile and run on every change
+  wach "gcc hello.c && ./a.out"
 
-  # Compile the .coffee file that changed
-  wach -o *.coffee, coffee @
+  # Only watch for changes to coffee files, compile the one that changed
+  wach -o *.coffee, coffee -c @
 
   # Run the tests every time a ruby file changes
   TEST_DIR=generators wach -o **/*.rb, bundle exec rake test
@@ -55,5 +55,8 @@ Inspiration
   the --watch flag for coffeescript
   http://jashkenas.github.com/coffee-script/#usage
 
-  watch
+  unix watch
   http://en.wikipedia.org/wiki/Watch_(Unix)
+
+  @visionmedia's watch
+  https://github.com/visionmedia/watch
