@@ -9,7 +9,7 @@ def configure(ctx):
   pass
 
 def build(ctx):
-  call(['make','watchdir'])
+  call(['make','bin/wach-watchdir'])
 
 def shutdown():
   call(['rm','-rf','wscript-build'])
