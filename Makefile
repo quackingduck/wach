@@ -7,4 +7,7 @@ watchdir:
 test:
 	./node_modules/.bin/mocha --ui tdd
 
-.PHONY: test
+tag:
+	git tag `coffee -e "pkg = JSON.parse require('fs').readFileSync('package.json'); console.log 'v' + pkg.version"`
+
+.PHONY: test watchdir tag
