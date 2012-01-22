@@ -33,6 +33,7 @@ watch = require './wach'
     child = spawn 'sh', ['-c', substitutePath(command, changedPath) ]
     commandRunning = yes
     child.stdout.pipe process.stdout
+    child.stderr.pipe process.stderr
     child.on 'exit', (code) ->
       commandRunning = no
       # todo: report status
