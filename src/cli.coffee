@@ -25,20 +25,20 @@ watch = require './wach'
     return unless path.existsSync changedPath
     return unless passesGlobFilters changedPath, only
 
-    logInfo "changed: #{changedPath} "
-    logInfo "running command"
+    commandWithPathSubsitution = substitutePath(command, changedPath)
+
+    logInfo ""
+    logInfo "changed: #{changedPath} (#{localTime()})"
+    logInfo "running: #{commandWithPathSubsitution}"
     logInfo ""
 
     # Run command in subshell
-    child = spawn 'sh', ['-c', substitutePath(command, changedPath) ]
+    child = spawn 'sh', ['-c', commandWithPathSubsitution ]
     commandRunning = yes
     child.stdout.pipe process.stdout
     child.stderr.pipe process.stderr
     child.on 'exit', (code) ->
       commandRunning = no
-      # todo: report status
-      logInfo ""
-      logInfo "command exited"
 
 parseArgs = (raw) ->
   help = no; command = []; only = []
@@ -46,6 +46,7 @@ parseArgs = (raw) ->
     switch arg
       when '--help', '-h' then help = yes
       when '--only', '-o' then only = (i for i in raw.shift().split(',') when i isnt '' )
+      when '--version' then printVersionAndExit()
       else command.push arg
   command = command.join ' '
   {help,command,only}
@@ -71,6 +72,15 @@ logInfo = (msg) ->
 
 termColorWrap = (code, str) -> termColor(code) + str + termColor()
 termColor = (code = '') -> '\033' + '[' + code + 'm'
+
+localTime = -> (new Date).toTimeString().split(' ')[0]
+
+printVersionAndExit = ->
+  console.log(
+    JSON.parse(require('fs').readFileSync(__dirname + '/../package.json')).
+    version
+  )
+  process.exit()
 
 usage = """
 Usage:
