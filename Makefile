@@ -4,10 +4,16 @@ JS = $(COFFEE:src%.coffee=lib%.js)
 all: bin/wach-watchdir $(JS)
 
 lib/%.js : src/%.coffee
-	./node_modules/.bin/coffee --compile --lint --output lib $<
+	./node_modules/.bin/coffee \
+		--compile \
+		--lint \
+		--output lib $<
 
 bin/wach-watchdir: src/watchdir.c
-	clang -Wall -framework CoreServices -o $@ $<
+	clang \
+		-Wall \
+		-framework CoreServices \
+		-o $@ $<
 
 test:
 	./node_modules/.bin/mocha --ui tdd
