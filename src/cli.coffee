@@ -14,7 +14,10 @@ watch = require './wach'
     process.exit 1
 
   logInfo "Will run: #{command}"
-  logInfo "when any files added or updated."
+  if only.length is 0
+    logInfo "when any files added or updated."
+  else
+    logInfo "when files matching {#{only.join(',')}} added or updated"
 
   commandRunning = no
 
@@ -45,7 +48,7 @@ parseArgs = (raw) ->
   while arg = raw.shift()
     switch arg
       when '--help', '-h' then help = yes
-      when '--only', '-o' then only = (i for i in raw.shift().split(',') when i isnt '' )
+      when '--only', '-o' then only = (i for i in raw.shift().split(',') when i isnt '')
       when '--version' then printVersionAndExit()
       else command.push arg
   command = command.join ' '
