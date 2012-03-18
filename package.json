@@ -6,7 +6,11 @@
 , "bin": { "wach": "./bin/wach" }
 , "engines": { "node": ">=0.4.0" }
 , "dependencies": { "minimatch": ">=0.0.5" }
-, "devDependencies": { "coffee-script": "1.1.2" }
+
+, "devDependencies":
+  { "coffee-script": "1.1.2"
+  , "mocha": "0.14.1"
+  }
 
 , "author": "Myles Byrne"
 , "repository":
