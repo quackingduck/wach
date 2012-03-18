@@ -1,17 +1,17 @@
 path = require 'path'
 spawn = require('child_process').spawn
 minimatch = require 'minimatch'
+
+support = require './support'
 watch = require './wach'
 
 @run = (args) ->
-  {help,command,only} = parseArgs args
+  {help,version,command,only} = support.parseArgs args
 
-  if help
-    console.log usage
-    process.exit 0
-  if command.length is 0
-    console.log usage
-    process.exit 1
+  exit 0, usage if help?
+  exit 0, npmVersion() if version?
+
+  exit 1, usage unless command?
 
   logInfo "Will run: #{command}"
   if only.length is 0
@@ -43,16 +43,7 @@ watch = require './wach'
     child.on 'exit', (code) ->
       commandRunning = no
 
-parseArgs = (raw) ->
-  help = no; command = []; only = []
-  while arg = raw.shift()
-    switch arg
-      when '--help', '-h' then help = yes
-      when '--only', '-o' then only = (i for i in raw.shift().split(',') when i isnt '')
-      when '--version' then printVersionAndExit()
-      else command.push arg
-  command = command.join ' '
-  {help,command,only}
+# ---
 
 # todo: don't substitute '@' if it's in the middle of a word (e.g.
 # foo@bar.com)
@@ -78,12 +69,13 @@ termColor = (code = '') -> '\033' + '[' + code + 'm'
 
 localTime = -> (new Date).toTimeString().split(' ')[0]
 
-printVersionAndExit = ->
-  console.log(
-    JSON.parse(require('fs').readFileSync(__dirname + '/../package.json')).
-    version
-  )
-  process.exit()
+exit = (status, message) ->
+  console.log(message) if message?
+  process.exit status
+
+npmVersion = ->
+  JSON.parse(require('fs').readFileSync(__dirname + '/../package.json')).
+  version
 
 usage = """
 Usage:
@@ -108,5 +100,5 @@ Examples:
 """
 
 # Expose some internals for testing
-@_test = {passesGlobFilters,parseArgs}
+@_test = {passesGlobFilters}
 

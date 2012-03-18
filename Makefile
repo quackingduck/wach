@@ -15,8 +15,10 @@ bin/wach-watchdir: src/watchdir.c
 		-framework CoreServices \
 		-o $@ $<
 
-test:
-	./node_modules/.bin/mocha --ui tdd
+test : test-support
+
+test-support :
+	./node_modules/.bin/mocha test/support_test --ui qunit --reporter spec --bail --colors
 
 tag:
 	git tag `coffee -e "pkg = JSON.parse require('fs').readFileSync('package.json'); console.log 'v' + pkg.version"`
