@@ -45,10 +45,8 @@ watch = require './wach'
 
 # ---
 
-# todo: don't substitute '@' if it's in the middle of a word (e.g.
-# foo@bar.com)
 substitutePath = (command, path) ->
-  command.replace '@', path
+  command.replace '{}', path
 
 passesGlobFilters = (path, filters) ->
   if filters.length is 0
