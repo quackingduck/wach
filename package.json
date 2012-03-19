@@ -1,7 +1,7 @@
 { "name": "wach"
 , "description": "Run a command when a file add/update event occurs"
 
-, "version": "0.9.1"
+, "version": "0.9.2-dev"
 
 , "main": "./lib/wach"
 , "bin":
