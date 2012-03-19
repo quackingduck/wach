@@ -17,3 +17,37 @@
 
 parseCommaSeparatedAndRemoveBlanks = (str) -> (i for i in str.split(',') when i isnt '')
 match = (val,values...) -> values.indexOf(val) >= 0
+
+# ---
+
+@log = (args...) -> console.log args...
+@log.info = (msg) ->
+  # 0;38;5 = xterm color, 246 = a light gray
+  console.error termColorWrap '0;38;5;246', "- #{msg}"
+
+termColorWrap = (code, str) -> termColor(code) + str + termColor()
+termColor = (code = '') -> '\033' + '[' + code + 'm'
+
+# ---
+
+minimatch = require 'minimatch'
+
+@matchesGlobs = (path, globs) ->
+  matches = (match for glob in globs when minimatch path, glob)
+  matches.length isnt 0
+
+# ---
+
+@localTime = -> (new Date).toTimeString().split(' ')[0]
+
+# ---
+
+@exit = (status, message) ->
+  console.log(message) if message?
+  process.exit status
+
+# ---
+
+@npmVersion = ->
+  JSON.parse(require('fs').readFileSync(__dirname + '/../package.json')).
+  version

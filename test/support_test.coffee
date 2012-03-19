@@ -57,6 +57,28 @@ test '-o foo', ->
 
 # ---
 
+{matchesGlobs} = require '../src/support'
+
+suite "matchesGlobs"
+
+test "empty list always false", ->
+  assert not matchesGlobs "foo.txt", []
+
+test "exact match", ->
+  assert matchesGlobs "foo.txt", ['foo.txt']
+
+test "match *", ->
+  assert matchesGlobs "foo.txt", ['*']
+
+test "match * plus extension", ->
+  assert matchesGlobs "foo.txt", ['*.txt']
+
+test "match second pattern", ->
+  assert matchesGlobs "foo.txt", ['wontmatch', '*.txt']
+
+# ---
+
+# deprecated
 {passesGlobFilters} = require('../src/cli')._test
 
 suite "passesGlobFilters"
