@@ -6,6 +6,7 @@
 , "bin":
   { "wach": "./bin/wach"
   , "wachs": "./bin/wachs"
+  , "wach-watchdir": "./bin/wach-watchdir"
   }
 , "engines": { "node": ">=0.4.0" }
 , "dependencies": { "minimatch": ">=0.0.5" }
