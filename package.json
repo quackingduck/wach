@@ -3,7 +3,10 @@
 , "version": "0.1.4-dev"
 
 , "main": "./lib/wach"
-, "bin": { "wach": "./bin/wach" }
+, "bin":
+  { "wach": "./bin/wach"
+  , "wachs": "./bin/wachs"
+  }
 , "engines": { "node": ">=0.4.0" }
 , "dependencies": { "minimatch": ">=0.0.5" }
 
