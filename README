@@ -15,6 +15,24 @@
   Watch for changes to files within the current directory and run a command
   when they occur.
 
+  Wach is really fast, the command is run as soon as the file changes, no
+  polling delay.
+
+  Comes with two executables: `wach` and `wachs`.
+
+  The `wach` utility will run any command (or inline shell script) whenever
+  files in the current directory are updated.
+
+  The `wachs` (there's an "s" on the end) utility does the same thing but for
+  commands that launch a long running process like a web server. It'll kill
+  the current process and launch a new one on file updates.
+
+  Actually there's a third - bonus! - executable that's probably only of
+  interest to developer of similar programs. The command `wach-watchdir` is
+  a tiny OS X binary that will monitor a directory for changes and print the
+  path that changed to stdout as soon as the change occurs. The other two
+  Wach executables use this internally for the filesystem monitoring part.
+
 Requirements
 
   Only runs on OS X 10.7 (Lion). Sorry
@@ -32,10 +50,13 @@ Examples
   wach "gcc hello.c && ./a.out"
 
   # Only watch for changes to coffee files, compile the one that changed
-  wach -o *.coffee, coffee -c @
+  wach -o *.coffee, coffee -c {}
 
   # Run the tests every time a ruby file changes
   TEST_DIR=generators wach -o **/*.rb, bundle exec rake test
+
+  # Restart a node app any time a js file changes
+  wachs -o *.js, node server.js
 
 Node API
 
@@ -44,7 +65,7 @@ Node API
     return console.log("something happened to " + path + "!");
   })
 
-Inspiration
+Inspiration (and similar stuff you might be interested in)
 
   steakout
   http://michael-mccracken.net/software/stakeout.tgz
@@ -58,5 +79,8 @@ Inspiration
   unix watch
   http://en.wikipedia.org/wiki/Watch_(Unix)
 
-  @visionmedia's watch
+  TJ Holowaychuk's watch
   https://github.com/visionmedia/watch
+
+  Isaac Z. Schlueter's node-supervisor
+  https://github.com/isaacs/node-supervisor
