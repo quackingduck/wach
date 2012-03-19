@@ -21,8 +21,6 @@ watch = require './wach'
   if args.except.length isnt 0
     log.info "except those matching {#{args.except.join(',')}}"
 
-  process.exit()
-
   child = null
   shouldRestart = no
   diedOnItsOwn = no
