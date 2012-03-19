@@ -14,7 +14,7 @@ watch = require './wach'
 
   log.info "Will kill and restart: #{args.command}"
 
-  if args.only.length is 0 # and args.except.length is 0
+  if args.only.length is 0
     log.info "when any files added or updated"
   else
     log.info "when files matching {#{args.only.join(',')}} added or updated"

@@ -75,26 +75,3 @@ test "match * plus extension", ->
 
 test "match second pattern", ->
   assert matchesGlobs "foo.txt", ['wontmatch', '*.txt']
-
-# ---
-
-# deprecated
-{passesGlobFilters} = require('../src/cli')._test
-
-suite "passesGlobFilters"
-
-test "empty filters always pass", ->
-  assert passesGlobFilters "foo.txt", []
-
-test "exact match", ->
-  assert passesGlobFilters "foo.txt", ['foo.txt']
-
-test "match *", ->
-  assert passesGlobFilters "foo.txt", ['*']
-
-test "match * plus extension", ->
-  assert passesGlobFilters "foo.txt", ['*.txt']
-
-test "match second pattern", ->
-  assert passesGlobFilters "foo.txt", ['wontmatch', '*.txt']
-

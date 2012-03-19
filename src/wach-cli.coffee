@@ -2,38 +2,49 @@ path = require 'path'
 spawn = require('child_process').spawn
 minimatch = require 'minimatch'
 
-support = require './support'
+{parseArgs,npmVersion,log,localTime,exit,matchesGlobs} = require './support'
 watch = require './wach'
 
-@run = (args) ->
-  {help,version,command,only} = support.parseArgs args
+@run = (rawArgs) ->
+  args = parseArgs rawArgs
+  {help,version,command,only} = parseArgs rawArgs
 
-  exit 0, usage if help?
-  exit 0, npmVersion() if version?
+  exit 0, usage if args.help?
+  exit 0, npmVersion() if args.version?
 
-  exit 1, usage unless command?
+  exit 1, usage unless args.command?
 
-  logInfo "Will run: #{command}"
-  if only.length is 0
-    logInfo "when any files added or updated."
+  log.info "Will run: #{args.command}"
+
+  if args.only.length is 0
+    log.info "when any files added or updated"
   else
-    logInfo "when files matching {#{only.join(',')}} added or updated"
+    log.info "when files matching {#{args.only.join(',')}} added or updated"
+  if args.except.length isnt 0
+    log.info "except those matching {#{args.except.join(',')}}"
 
   commandRunning = no
 
-  watch process.cwd(), (changedPath) ->
-    changedPath = path.relative process.cwd(), changedPath
+  cwd = process.cwd()
 
+  watch cwd, (changedPath) ->
+    changedPath = path.relative cwd, changedPath
+
+    # don't start a new run if the last one hasn't finished
     return if commandRunning
+
+    # do nothing for deletes
     return unless path.existsSync changedPath
-    return unless passesGlobFilters changedPath, only
+    # do nothing for ignored paths
+    return if (args.only.length   isnt 0) and (not matchesGlobs changedPath, args.only)
+    return if (args.except.length isnt 0) and (    matchesGlobs changedPath, args.except)
 
-    commandWithPathSubsitution = substitutePath(command, changedPath)
+    commandWithPathSubsitution = substitutePath(args.command, changedPath)
 
-    logInfo ""
-    logInfo "changed: #{changedPath} (#{localTime()})"
-    logInfo "running: #{commandWithPathSubsitution}"
-    logInfo ""
+    log.info ""
+    log.info "changed: #{changedPath} (#{localTime()})"
+    log.info "running: #{commandWithPathSubsitution}"
+    log.info ""
 
     # Run command in subshell
     child = spawn 'sh', ['-c', commandWithPathSubsitution ]
@@ -48,55 +59,32 @@ watch = require './wach'
 substitutePath = (command, path) ->
   command.replace '{}', path
 
-passesGlobFilters = (path, filters) ->
-  if filters.length is 0
-    yes
-  else
-    pass = no
-    for exp in filters
-      if minimatch path, exp
-        pass = yes
-    pass
-
-logInfo = (msg) ->
-  # 0;38;5 = xterm color, 246 = a light gray
-  console.error termColorWrap '0;38;5;246', "- #{msg}"
-
-termColorWrap = (code, str) -> termColor(code) + str + termColor()
-termColor = (code = '') -> '\033' + '[' + code + 'm'
-
-localTime = -> (new Date).toTimeString().split(' ')[0]
-
-exit = (status, message) ->
-  console.log(message) if message?
-  process.exit status
-
-npmVersion = ->
-  JSON.parse(require('fs').readFileSync(__dirname + '/../package.json')).
-  version
-
 usage = """
+Run a command every when file changes occur in the current directory. If
+the command you want to run is a long running process like a web server
+see `wachs`
+
 Usage:
   wach [options] <command>
 
 Required:
   <command>
     Run every time an update occurs in the directory being monitored.
-    The `@` will be subsituted with the path that changed.
+    If the command includes `{}` it will be subsituted for the path that changed.
 
 Options:
-  -o|--only <glob>
-    Only run <command> when the path that changed matches <glob>. Quote the
-    glob or add a trailing comma to prevent your shell from automatically
-    expanding it.
+  -o|--only <globs>
+    Only run <command> when the path that changed matches <globs>.
+
+  -e|--except <globs>
+    Only run <command> when the path that changed doesn't match <globs>.
+
+  Quote the <globs> ("*.c") or add a trailing comma (*.c,) to prevent your shell from
+  automatically expanding  them.
 
 Examples:
   wach make
   wach -o *.c, make
-  wach -o *.coffee, coffee @
+  wach -o *.coffee, coffee {}
   TEST_DIR=generators wach -o **/*.rb, bundle exec rake test
 """
-
-# Expose some internals for testing
-@_test = {passesGlobFilters}
-
