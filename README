@@ -28,10 +28,9 @@
   the current process and launch a new one.
 
   Actually there's a third - bonus! - executable that's probably only of
-  interest to developer of similar programs. The command `wach-watchdir` is
-  a tiny OS X binary that will monitor a directory for changes and print the
-  path that changed to stdout as soon as the change occurs. The other two
-  Wach executables use this internally for the filesystem monitoring part.
+  interest to developers of similar programs. The command `wach-watchdir` is
+  a tiny OS X binary that will monitor a directory for changes and print the 
+  changed paths stdout. The other two Wach executables use this internally.
 
 Requirements
 
