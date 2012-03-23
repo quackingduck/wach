@@ -25,7 +25,7 @@
 
   The `wachs` (there's an "s" on the end) utility does the same thing but for
   commands that launch a long running process like a web server. It'll kill
-  the current process and launch a new one on file updates.
+  the current process and launch a new one.
 
   Actually there's a third - bonus! - executable that's probably only of
   interest to developer of similar programs. The command `wach-watchdir` is
