@@ -27,4 +27,7 @@
   , "url": "https://github.com/quackingduck/wach/raw/master/LICENSE"
   }
   ]
+
+, "keywords":
+  [ "watch", "filesystem", "fsevents", "monitor", "supervise", "observe" ]
 }
