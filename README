@@ -64,7 +64,10 @@ Node API
     return console.log("something happened to " + path + "!");
   })
 
-Inspiration (and similar stuff you might be interested in)
+Other similar projects:
+
+  Patrick Mueller's wr
+  https://github.com/pmuellr/wr
 
   steakout
   http://michael-mccracken.net/software/stakeout.tgz
