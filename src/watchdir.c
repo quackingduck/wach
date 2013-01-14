@@ -9,7 +9,7 @@ Only works on OS X 10.7 (Lion).
 
 #include <CoreServices/CoreServices.h>
 
-static void callback(
+static void _eventStreamCallback(
   ConstFSEventStreamRef streamRef,
   void* clientCallBackInfo,
   size_t numEvents,
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
   // create stream
   FSEventStreamRef stream = FSEventStreamCreate(
     kCFAllocatorDefault,
-    callback,
+    _eventStreamCallback,
     NULL, // context for callback
     pathsToWatch,
     kFSEventStreamEventIdSinceNow,
