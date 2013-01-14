@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
   FSEventStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
   FSEventStreamStart(stream);
   CFRunLoopRun();
-  return 0; // CFRunLoopRun never returns, we never get here
+  return EXIT_SUCCESS; // CFRunLoopRun never returns, we never get here
 }
 
 /*
