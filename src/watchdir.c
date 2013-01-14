@@ -9,17 +9,16 @@ Only works on OS X 10.7 (Lion).
 
 #include <CoreServices/CoreServices.h>
 
-static void callback(
-  ConstFSEventStreamRef streamRef,
-  void* clientCallBackInfo,
+static void _eventStreamCallback(
+  __unused ConstFSEventStreamRef streamRef,
+  __unused void* clientCallBackInfo,
   size_t numEvents,
   void* paths,
-  const FSEventStreamEventFlags eventFlags[],
-  const FSEventStreamEventId eventIds[]
+  __unused const FSEventStreamEventFlags eventFlags[],
+  __unused const FSEventStreamEventId eventIds[]
 ) {
   char** pathsArr = paths; // woo! a C type
-  int i;
-  for (i = 0; i < numEvents; i++) { puts(pathsArr[i]); }
+  for (unsigned long i = 0; i < numEvents; i++) { puts(pathsArr[i]); }
   fflush(stdout);
 }
 
@@ -45,7 +44,7 @@ int main(int argc, char* argv[]) {
   // create stream
   FSEventStreamRef stream = FSEventStreamCreate(
     kCFAllocatorDefault,
-    callback,
+    _eventStreamCallback,
     NULL, // context for callback
     pathsToWatch,
     kFSEventStreamEventIdSinceNow,
@@ -56,7 +55,7 @@ int main(int argc, char* argv[]) {
   FSEventStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
   FSEventStreamStart(stream);
   CFRunLoopRun();
-  return 0; // CFRunLoopRun never returns, we never get here
+  return EXIT_SUCCESS; // CFRunLoopRun never returns, we never get here
 }
 
 /*
