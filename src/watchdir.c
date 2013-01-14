@@ -10,12 +10,12 @@ Only works on OS X 10.7 (Lion).
 #include <CoreServices/CoreServices.h>
 
 static void _eventStreamCallback(
-  ConstFSEventStreamRef streamRef,
-  void* clientCallBackInfo,
+  __unused ConstFSEventStreamRef streamRef,
+  __unused void* clientCallBackInfo,
   size_t numEvents,
   void* paths,
-  const FSEventStreamEventFlags eventFlags[],
-  const FSEventStreamEventId eventIds[]
+  __unused const FSEventStreamEventFlags eventFlags[],
+  __unused const FSEventStreamEventId eventIds[]
 ) {
   char** pathsArr = paths; // woo! a C type
   int i;
