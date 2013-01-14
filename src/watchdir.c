@@ -18,8 +18,7 @@ static void _eventStreamCallback(
   __unused const FSEventStreamEventId eventIds[]
 ) {
   char** pathsArr = paths; // woo! a C type
-  int i;
-  for (i = 0; i < numEvents; i++) { puts(pathsArr[i]); }
+  for (unsigned long i = 0; i < numEvents; i++) { puts(pathsArr[i]); }
   fflush(stdout);
 }
 
