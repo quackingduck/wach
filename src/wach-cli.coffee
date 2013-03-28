@@ -50,13 +50,38 @@ watch = require './wach'
     log.info "running: #{commandWithPathSubsitution}"
     log.info ""
 
+    runCommand commandWithPathSubsitution
+
+  runCommand = (command) ->
     # Run command in subshell
-    child = spawn 'sh', ['-c', commandWithPathSubsitution ]
+    child = spawn 'sh', ['-c', command ]
     commandRunning = yes
     child.stdout.pipe process.stdout
     child.stderr.pipe process.stderr
     child.on 'exit', (code) ->
       commandRunning = no
+
+  process.stdin.on 'end', ->
+    log.info ""
+    log.info "Recieved CTRL+D. Killing self."
+    log.info ""
+
+    process.kill()
+
+  # resume STDIN so we can watch for EOF/CTRL+D
+  process.stdin.resume()
+
+  process.on 'SIGINT', ->
+    # get rid of the '^C'
+    process.stdout.clearLine()
+    process.stdout.cursorTo 0
+
+    log.info ""
+    log.info "Recieved SIGINT. Running command: #{args.command}"
+    log.info "To quit, use CTRL+D or CTRL+\\."
+    log.info ""
+
+    runCommand args.command
 
 # ---
 

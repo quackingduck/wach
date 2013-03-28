@@ -8,14 +8,19 @@ spawn = require('child_process').spawn
 # This function is a thin wrapper over the `wach-watchdir` executable which
 # does the heavy lifting. It hooks into the OS's file events system and writes
 # the paths where events occur to stdout.
-module.exports = (dir, callback) ->
+module.exports = wach = (dir, callback) ->
   watcherProcess = spawn "#{__dirname}/../bin/wach-watchdir", [dir]
 
   watcherProcess.stdout.on 'data', (data) ->
     callback(path) for path in parseData(data.toString())
 
   # The process runs until killed so if it exits it means there was an error
-  watcherProcess.on 'exit', (code) ->
+  watcherProcess.on 'exit', (err, code) ->
+    # If it died due to a SIGINT, restart it because the user just wanted to
+    # manually run the command. This might be avoided by ignoring SIGINT in
+    # `wach-watchdir`, but I don't know that we want or need that.
+    return wach dir, callback if code is 'SIGINT'
+
     process.stderr.write """
     Unable to start watcher for "#{dir}".
     This is probably a bug.
