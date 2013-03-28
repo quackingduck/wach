@@ -1,4 +1,8 @@
+fs = require 'fs'
 path = require 'path'
+# support < node 0.8
+fs.existsSync = path.existsSync unless typeof fs.existsSync is 'function'
+
 spawn = require('child_process').spawn
 minimatch = require 'minimatch'
 
@@ -34,7 +38,7 @@ watch = require './wach'
     return if commandRunning
 
     # do nothing for deletes
-    return unless path.existsSync changedPath
+    return unless fs.existsSync changedPath
     # do nothing for ignored paths
     return if (args.only.length   isnt 0) and (not matchesGlobs changedPath, args.only)
     return if (args.except.length isnt 0) and (    matchesGlobs changedPath, args.except)
@@ -46,13 +50,38 @@ watch = require './wach'
     log.info "running: #{commandWithPathSubsitution}"
     log.info ""
 
+    runCommand commandWithPathSubsitution
+
+  runCommand = (command) ->
     # Run command in subshell
-    child = spawn 'sh', ['-c', commandWithPathSubsitution ]
+    child = spawn 'sh', ['-c', command ]
     commandRunning = yes
     child.stdout.pipe process.stdout
     child.stderr.pipe process.stderr
     child.on 'exit', (code) ->
       commandRunning = no
+
+  process.stdin.on 'end', ->
+    log.info ""
+    log.info "Recieved CTRL+D. Killing self."
+    log.info ""
+
+    process.kill()
+
+  # resume STDIN so we can watch for EOF/CTRL+D
+  process.stdin.resume()
+
+  process.on 'SIGINT', ->
+    # get rid of the '^C'
+    process.stdout.clearLine()
+    process.stdout.cursorTo 0
+
+    log.info ""
+    log.info "Recieved SIGINT. Running command: #{args.command}"
+    log.info "To quit, use CTRL+D or CTRL+\\."
+    log.info ""
+
+    runCommand args.command
 
 # ---
 
