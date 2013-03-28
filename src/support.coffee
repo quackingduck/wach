@@ -26,7 +26,7 @@ match = (val,values...) -> values.indexOf(val) >= 0
   console.error termColorWrap '0;38;5;246', "- #{msg}"
 
 termColorWrap = (code, str) -> termColor(code) + str + termColor()
-termColor = (code = '') -> '\033' + '[' + code + 'm'
+termColor = (code = '') -> '\u001b' + '[' + code + 'm'
 
 # ---
 
