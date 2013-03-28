@@ -1,4 +1,8 @@
+fs = require 'fs'
 path = require 'path'
+# support < node 0.8
+fs.existsSync = path.existsSync unless typeof fs.existsSync is 'function'
+
 spawn = require('child_process').spawn
 minimatch = require 'minimatch'
 
@@ -34,7 +38,7 @@ watch = require './wach'
     return if commandRunning
 
     # do nothing for deletes
-    return unless path.existsSync changedPath
+    return unless fs.existsSync changedPath
     # do nothing for ignored paths
     return if (args.only.length   isnt 0) and (not matchesGlobs changedPath, args.only)
     return if (args.except.length isnt 0) and (    matchesGlobs changedPath, args.except)
