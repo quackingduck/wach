@@ -23,4 +23,11 @@ test-support :
 tag:
 	git tag v`coffee -e "console.log JSON.parse(require('fs').readFileSync 'package.json').version"`
 
-.PHONY: test tag
+# ---
+
+# Only useful if you use dropbox to keep this folder in sync between two
+# machines
+fix-symlinks :
+	cd node_modules/.bin && rm -rf * && ln -s ../*/bin/* .
+
+.PHONY: test tag fix-symlinks
