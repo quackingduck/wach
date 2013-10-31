@@ -9,11 +9,8 @@ lib/%.js : src/%.coffee
 		--lint \
 		--output lib $<
 
-bin/wach-watchdir: src/watchdir.c
-	clang \
-		-Wall \
-		-framework CoreServices \
-		-o $@ $<
+clean:
+	rm -rf lib/*
 
 test : test-support
 
