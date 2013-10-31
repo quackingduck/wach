@@ -1,36 +1,46 @@
-{ "name": "wach"
-, "description": "Run a command when a file add/update event occurs"
-
-, "version": "0.9.3-dev"
-
-, "main": "./lib/wach"
-, "bin":
-  { "wach": "./bin/wach"
-  , "wachs": "./bin/wachs"
-  , "wach-watchdir": "./bin/wach-watchdir"
-  }
-
-, "engines": { "node": ">=0.4.0" }
-, "dependencies": { "minimatch": ">=0.0.5" }
-, "devDependencies":
-  { "coffee-script": "1.1.2"
-  , "mocha": "0.14.1"
-  }
-
-, "os" : [ "darwin" ]
-, "scripts": { "preinstall": "make bin/wach-watchdir" }
-
-, "author": "Myles Byrne"
-, "repository":
-  { "type": "git"
-  , "url": "git://github.com/quackingduck/wach.git"
-  }
-, "licenses": [
-  { "type": "MIT"
-  , "url": "https://github.com/quackingduck/wach/raw/master/LICENSE"
-  }
+{
+  "name": "wach",
+  "description": "Run a command when a file add/update event occurs",
+  "version": "0.9.3-dev",
+  "main": "./lib/wach",
+  "bin": {
+    "wach": "./bin/wach",
+    "wachs": "./bin/wachs",
+    "wach-watchdir": "./bin/wach-watchdir"
+  },
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "dependencies": {
+    "minimatch": ">=0.0.5"
+  },
+  "devDependencies": {
+    "coffee-script": "1.1.2",
+    "mocha": "0.14.1"
+  },
+  "os": [
+    "darwin"
+  ],
+  "scripts": {
+    "preinstall": "make bin/wach-watchdir"
+  },
+  "author": "Myles Byrne",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/quackingduck/wach.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/quackingduck/wach/raw/master/LICENSE"
+    }
+  ],
+  "keywords": [
+    "watch",
+    "filesystem",
+    "fsevents",
+    "monitor",
+    "supervise",
+    "observe"
   ]
-
-, "keywords":
-  [ "watch", "filesystem", "fsevents", "monitor", "supervise", "observe" ]
 }
