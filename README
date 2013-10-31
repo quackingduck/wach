@@ -54,7 +54,7 @@ Examples
 
 Node API
 
-  wach = require('../src/wach');
+  wach = require('wach');
   wach('.', function(path) {
     return console.log("something happened to " + path + "!");
   })
