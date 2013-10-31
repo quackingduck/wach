@@ -1,7 +1,6 @@
 .DS_Store
 /notes
 /node_modules
-/prototypes
 
 /bin/wach-watchdir
 .lock-wscript
