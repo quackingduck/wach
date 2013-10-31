@@ -59,6 +59,11 @@ Node API
     return console.log("something happened to " + path + "!");
   })
 
+Contributing
+
+  Patches welcome. Especially if you'd like to re-write this in plain
+  JavaScript. Just fork and make a pull request
+
 Other similar projects:
 
   Patrick Mueller's wr
