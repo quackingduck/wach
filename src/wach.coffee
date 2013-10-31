@@ -9,7 +9,7 @@ spawn = require('child_process').spawn
 # does the heavy lifting. It hooks into the OS's file events system and writes
 # the paths where events occur to stdout.
 module.exports = (dir, callback) ->
-  watcherProcess = spawn 'wachdir', [dir]
+  watcherProcess = spawn __dirname + '/../node_modules/.bin/wachdir', [dir]
 
   watcherProcess.stdout.on 'data', (data) ->
     callback(path) for path in parseData(data.toString())
