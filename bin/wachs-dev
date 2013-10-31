@@ -1,2 +1,0 @@
-#!/usr/bin/env coffee
-require('../src/wachs-cli').run(process.argv.slice(2))

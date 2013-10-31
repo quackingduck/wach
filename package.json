@@ -12,10 +12,11 @@
     "node": ">=0.4.0"
   },
   "dependencies": {
-    "minimatch": ">=0.0.5"
+    "minimatch": ">=0.0.5",
+    "wachdir": "~0.1.0"
   },
   "devDependencies": {
-    "coffee-script": "1.1.2",
+    "coffee-script": "~1.6.3"
     "mocha": "0.14.1"
   },
   "os": [

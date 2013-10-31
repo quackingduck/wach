@@ -5,11 +5,11 @@ spawn = require('child_process').spawn
 #
 #     watch '.', (path) -> console.log "something happened to #{path}!"
 #
-# This function is a thin wrapper over the `wach-watchdir` executable which
+# This function is a thin wrapper over the `wachdir` executable which
 # does the heavy lifting. It hooks into the OS's file events system and writes
 # the paths where events occur to stdout.
 module.exports = (dir, callback) ->
-  watcherProcess = spawn "#{__dirname}/../bin/wach-watchdir", [dir]
+  watcherProcess = spawn 'wachdir', [dir]
 
   watcherProcess.stdout.on 'data', (data) ->
     callback(path) for path in parseData(data.toString())
@@ -21,7 +21,7 @@ module.exports = (dir, callback) ->
     This is probably a bug.
     """ + '\n'
 
-# `wach-watchdir` writes one or more paths separated by newlines to its stdout
+# `wachdir` writes one or more paths separated by newlines to its stdout
 # stream, e.g.:
 #
 #     /Users/bob/someproject/foo.c

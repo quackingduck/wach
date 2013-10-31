@@ -2,5 +2,4 @@
 /notes
 /node_modules
 
-/bin/wach-watchdir
 .lock-wscript
