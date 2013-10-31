@@ -15,12 +15,3 @@ test : test-support
 
 test-support :
 	./node_modules/.bin/mocha test/support_test --ui qunit --bail --colors
-
-# ---
-
-# Only useful if you use dropbox to keep this folder in sync between two
-# machines
-fix-symlinks :
-	cd node_modules/.bin && rm -rf * && ln -s ../*/bin/* .
-
-.PHONY: test tag fix-symlinks
