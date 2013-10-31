@@ -21,9 +21,6 @@
   "os": [
     "darwin"
   ],
-  "scripts": {
-    "preinstall": "make bin/wach-watchdir"
-  },
   "author": "Myles Byrne",
   "repository": {
     "type": "git",
