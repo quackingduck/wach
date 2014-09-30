@@ -39,5 +39,8 @@
     "monitor",
     "supervise",
     "observe"
-  ]
+  ],
+  "scripts": {
+    "build": "coffee -co lib src"
+  }
 }
