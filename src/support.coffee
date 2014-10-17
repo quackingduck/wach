@@ -33,7 +33,7 @@ termColor = (code = '') -> '\x1B' + '[' + code + 'm'
 minimatch = require 'minimatch'
 
 @matchesGlobs = (path, globs) ->
-  matches = (match for glob in globs when minimatch path, glob)
+  matches = (match for glob in globs when minimatch path, glob, dot: true)
   matches.length isnt 0
 
 # ---
