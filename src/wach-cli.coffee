@@ -58,7 +58,8 @@ watch = require './wach'
 # ---
 
 substitutePath = (command, path) ->
-  command.replace '{}', path
+  pathWithEscapedSpaces = path.replace(RegExp(' ', 'g'), '\\ ')
+  command.replace '{}', pathWithEscapedSpaces
 
 usage = """
 Run a command every when file changes occur in the current directory. If
