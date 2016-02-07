@@ -8,7 +8,7 @@
     "wachs": "./bin/wachs"
   },
   "engines": {
-    "node": ">=0.4.0"
+    "node": ">=0.4.0 <5.0.0"
   },
   "dependencies": {
     "minimatch": ">=0.0.5",
