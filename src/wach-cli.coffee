@@ -48,7 +48,7 @@ watch = require './wach'
     log.info ""
 
     # Run command in subshell
-    child = spawn 'sh', ['-c', commandWithPathSubsitution ]
+    child = spawn 'bash', ['-c', commandWithPathSubsitution ]
     commandRunning = yes
     child.stdout.pipe process.stdout
     child.stderr.pipe process.stderr
